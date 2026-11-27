@@ -29,9 +29,9 @@ Instalação a partir do tarball:
 
 ```bash
 tar -xzf aoc-gmenu-0.1.0-x86_64-linux.tar.gz
+# confira os hashes na mesma pasta do tar.gz e do SHA256SUMS (depois de extrair)
+sha256sum -c SHA256SUMS
 cd aoc-gmenu-0.1.0-x86_64-linux
-# opcional: conferir hashes
-sha256sum -c ../SHA256SUMS   # se o SHA256SUMS estiver ao lado do tar.gz
 ./install-user.sh            # ou: bash install-user.sh
 update-desktop-database ~/.local/share/applications
 kbuildsycoca6                # KDE / Plasma
@@ -123,6 +123,8 @@ Pre-built binaries (no compile needed):
 
 ```bash
 tar -xzf aoc-gmenu-0.1.0-x86_64-linux.tar.gz
+# verify checksums in the same folder as the tar.gz and SHA256SUMS (after extracting)
+sha256sum -c SHA256SUMS
 cd aoc-gmenu-0.1.0-x86_64-linux
 ./install-user.sh            # or: bash install-user.sh
 update-desktop-database ~/.local/share/applications
