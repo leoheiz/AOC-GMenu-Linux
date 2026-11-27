@@ -1,3 +1,5 @@
+> ⚠ **Experimental / only tested on CachyOS + KDE Plasma 6 (Wayland) with an AOC U34G4C.** Other distros, desktop environments, compositors, or monitors may not work.
+
 # AOC G-Menu Linux
 
 Port **não oficial** da comunidade: controles DDC/CI, mira de software e perfis para monitores AOC no Linux (KDE/Wayland).
@@ -15,35 +17,59 @@ Testado no **AOC U34G4C** (3440×1440@180, DisplayPort, amdgpu / CachyOS, Plasma
 
 Protocolo: [`docs/PROTOCOLO.md`](docs/PROTOCOLO.md). GUI / mira / perfis: [`docs/GUI-MIRA-PERFIS.md`](docs/GUI-MIRA-PERFIS.md).
 
+## Download / Release
+
+Binários pré-compilados (sem precisar compilar):
+
+- Releases: <https://github.com/leoheiz/AOC-GMenu-Linux/releases>
+- Tag v0.1.0: <https://github.com/leoheiz/AOC-GMenu-Linux/releases/tag/v0.1.0>
+- Artefato: `aoc-gmenu-0.1.0-x86_64-linux.tar.gz` (+ `SHA256SUMS`)
+
+Instalação a partir do tarball:
+
+```bash
+tar -xzf aoc-gmenu-0.1.0-x86_64-linux.tar.gz
+cd aoc-gmenu-0.1.0-x86_64-linux
+# opcional: conferir hashes
+sha256sum -c ../SHA256SUMS   # se o SHA256SUMS estiver ao lado do tar.gz
+./install-user.sh            # ou: bash install-user.sh
+update-desktop-database ~/.local/share/applications
+kbuildsycoca6                # KDE / Plasma
+```
+
+O script copia os quatro binários para `~/.local/bin` e os `.desktop` para `~/.local/share/applications` (sem `cargo`). Garanta que `~/.local/bin` esteja no `PATH`.
+
+**Udev (opcional, precisa de root):** o tarball inclui `99-aoc-gmenu-i2c.rules` só como exemplo. Copiar para `/etc/udev/rules.d/` exige root e o usuário deve estar no grupo `i2c` (ou usar `uaccess`). Este projeto **não** executa esse passo por você — veja os comentários no arquivo.
+
 ## Requisitos
 
-- Toolchain Rust (`rustc` / `cargo`)
-- Módulo `i2c-dev` e acesso a `/dev/i2c-*` (grupo `i2c` e/ou udev/ACL tipo uaccess)
+- Acesso a `/dev/i2c-*` (módulo `i2c-dev`; grupo `i2c` e/ou udev/ACL tipo uaccess)
 - `ddcutil` opcional (fallback só para VCP MCCS padrão; não cobre framing TPV)
+- Para **compilar a partir do fonte**: toolchain Rust (`rustc` / `cargo`)
 
-## Compilar
+## Compilar a partir do fonte
 
 ```bash
 export PATH="$HOME/.cargo/bin:$PATH"
 cargo build --release --workspace
 # binários em target/release/
+bash packaging/install-user.sh
+update-desktop-database ~/.local/share/applications
+kbuildsycoca6   # KDE
 ```
 
 ## Instalação de usuário (sem sudo)
 
+Funciona a partir do tarball **ou** de um checkout git (após `cargo build --release --workspace`):
+
 ```bash
+# tarball:
+./install-user.sh
+# checkout:
 bash packaging/install-user.sh
 ```
 
-O script copia os binários para `~/.local/bin` e os `.desktop` para `~/.local/share/applications`. Em seguida:
-
-```bash
-update-desktop-database ~/.local/share/applications
-# no KDE / Plasma:
-kbuildsycoca6
-```
-
-Depois disso, **AOC G-Menu** aparece no lançador de aplicações (categoria Settings / Hardware). Garanta que `~/.local/bin` esteja no `PATH` (em geral já está em desktops modernos).
+Variáveis opcionais: `PREFIX`, ou `BIN_DIR` / `APP_DIR` (padrão `~/.local/bin` e `~/.local/share/applications`).
 
 O tray (`aoc-gmenu-tray` / «AOC G-Menu Tray») é **opcional** e não é necessário para uso normal — a GUI é o app principal.
 
@@ -79,35 +105,50 @@ MIT — ver [`LICENSE`](LICENSE).
 
 ## English
 
+> ⚠ **Experimental / only tested on CachyOS + KDE Plasma 6 (Wayland) with an AOC U34G4C.** Other distros, desktop environments, compositors, or monitors may not work.
+
 **Unofficial** community port: DDC/CI controls, a software crosshair overlay, and profiles for AOC monitors on Linux (KDE/Wayland).
 
 **Not affiliated with, endorsed by, or related to AOC or TPV.** Windows G-Menu is AOC’s product; this project reimplements DDC/CI plus a software overlay from public protocol behavior and independent analysis. No official binaries or artwork are included.
 
 Tested on **AOC U34G4C** (3440×1440@180, DisplayPort, amdgpu / CachyOS, Plasma 6 Wayland). Other AOC/TPV panels may work for standard MCCS VCP; proprietary TPV codes vary by model.
 
+### Download / Release
+
+Pre-built binaries (no compile needed):
+
+- Releases: <https://github.com/leoheiz/AOC-GMenu-Linux/releases>
+- Tag v0.1.0: <https://github.com/leoheiz/AOC-GMenu-Linux/releases/tag/v0.1.0>
+- Artifact: `aoc-gmenu-0.1.0-x86_64-linux.tar.gz` (+ `SHA256SUMS`)
+
+```bash
+tar -xzf aoc-gmenu-0.1.0-x86_64-linux.tar.gz
+cd aoc-gmenu-0.1.0-x86_64-linux
+./install-user.sh            # or: bash install-user.sh
+update-desktop-database ~/.local/share/applications
+kbuildsycoca6                # KDE / Plasma
+```
+
+Optional udev example (`99-aoc-gmenu-i2c.rules`) is **shipped only as an example** — installing into `/etc/udev/rules.d/` needs root and the `i2c` group (or `uaccess`). This project does not run that step for you.
+
 ### Requirements
 
-- Rust toolchain
-- `i2c-dev` module and access to `/dev/i2c-*` (`i2c` group and/or udev/ACL such as uaccess)
+- Access to `/dev/i2c-*` (`i2c-dev`; `i2c` group and/or udev/ACL such as uaccess)
 - `ddcutil` optional (fallback for standard VCP only)
+- Rust toolchain only if building from source
 
-### Build
+### Build from source
 
 ```bash
 cargo build --release --workspace
-```
-
-### User install (no sudo)
-
-```bash
 bash packaging/install-user.sh
 update-desktop-database ~/.local/share/applications
 kbuildsycoca6   # KDE
 ```
 
-Binaries go to `~/.local/bin`, desktop files to `~/.local/share/applications`. **AOC G-Menu** then appears in the application launcher (Settings / Hardware). Keep `~/.local/bin` on your `PATH`.
+### User install (no sudo)
 
-The tray (`aoc-gmenu-tray`) is **optional**; the GUI is the main app.
+From the tarball or a git checkout (after a release build). Optional env: `PREFIX`, or `BIN_DIR` / `APP_DIR`. Binaries → `~/.local/bin`, desktop files → `~/.local/share/applications`. The tray is **optional**; the GUI is the main app.
 
 ### Usage
 

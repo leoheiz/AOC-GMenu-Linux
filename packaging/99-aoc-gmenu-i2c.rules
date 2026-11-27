@@ -1,0 +1,18 @@
+# Example udev rules for AOC G-Menu Linux — NOT installed automatically.
+#
+# Copying this file into /etc/udev/rules.d/ requires root, for example:
+#   sudo cp packaging/99-aoc-gmenu-i2c.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+#
+# You must also be in the `i2c` group (or rely on TAG+="uaccess" for local seats):
+#   sudo usermod -aG i2c "$USER"
+# then log out and back in.
+#
+# This project only ships the example; it does not run any of the steps above for you.
+
+# Grant the i2c group read/write on I2C character devices.
+KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
+
+# Optionally tag for seat-based ACL (uaccess) so the active local user gets access
+# without needing the i2c group. Safe to keep alongside the GROUP rule above.
+KERNEL=="i2c-[0-9]*", TAG+="uaccess"

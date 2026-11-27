@@ -223,7 +223,7 @@ dependencies = [
 
 [[package]]
 name = "aoc-crosshair"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "aoc-gmenu",
  "signal-hook",
@@ -234,7 +234,7 @@ dependencies = [
 
 [[package]]
 name = "aoc-gmenu"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "clap 4.6.10",
  "dirs",
@@ -247,7 +247,7 @@ dependencies = [
 
 [[package]]
 name = "aoc-gmenu-gui"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "aoc-crosshair",
  "aoc-gmenu",
@@ -260,7 +260,7 @@ dependencies = [
 
 [[package]]
 name = "aoc-gmenu-tray"
-version = "0.2.0"
+version = "0.1.0"
 dependencies = [
  "aoc-gmenu",
  "ksni",
