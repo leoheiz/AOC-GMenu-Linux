@@ -1,0 +1,28 @@
+[package]
+name = "aoc-crosshair"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Software crosshair overlay (wlr-layer-shell) for AOC G-Menu Linux"
+
+[lints]
+workspace = true
+
+[lib]
+name = "aoc_crosshair"
+path = "src/lib.rs"
+
+[[bin]]
+name = "aoc-crosshair"
+path = "src/main.rs"
+
+[dependencies]
+aoc-gmenu = { workspace = true }
+tiny-skia = { workspace = true }
+wayland-client = "0.31"
+smithay-client-toolkit = "0.19"
+signal-hook = "0.3"

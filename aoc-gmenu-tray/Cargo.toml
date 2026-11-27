@@ -1,0 +1,23 @@
+[package]
+name = "aoc-gmenu-tray"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Optional StatusNotifierItem tray for AOC G-Menu profiles and crosshair"
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "aoc-gmenu-tray"
+path = "src/main.rs"
+
+[dependencies]
+aoc-gmenu = { workspace = true }
+ksni = "0.2"
+serde = { workspace = true }
+toml = { workspace = true }

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=AOC G-Menu Tray
+Comment=Ícone de bandeja para perfis e mira AOC G-Menu
+Exec=aoc-gmenu-tray
+Icon=video-display
+Terminal=false
+Categories=Settings;HardwareSettings;
+StartupNotify=false
+X-GNOME-Autostart-enabled=true

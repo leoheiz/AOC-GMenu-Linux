@@ -1,0 +1,26 @@
+[Desktop Entry]
+Type=Application
+Name=AOC G-Menu
+Comment=Controle DDC/CI e mira para monitores AOC
+Exec=aoc-gmenu-gui
+Icon=video-display
+Terminal=false
+Categories=Settings;HardwareSettings;
+StartupNotify=true
+Actions=ProfileJogo;ProfileLeitura;ProfileOriginal;CrosshairToggle;
+
+[Desktop Action ProfileJogo]
+Name=Perfil Jogo
+Exec=aoc-gmenu profile apply jogo --yes
+
+[Desktop Action ProfileLeitura]
+Name=Perfil Leitura
+Exec=aoc-gmenu profile apply leitura --yes
+
+[Desktop Action ProfileOriginal]
+Name=Perfil Original
+Exec=aoc-gmenu profile apply original --yes
+
+[Desktop Action CrosshairToggle]
+Name=Alternar mira
+Exec=aoc-gmenu crosshair toggle

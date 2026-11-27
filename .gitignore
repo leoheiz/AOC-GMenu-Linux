@@ -1,0 +1,11 @@
+_re/
+_local/
+target/
+*.exe
+*.dll
+*.asar
+*.log
+.env
+.DS_Store
+*.pdb
+*.ilk
